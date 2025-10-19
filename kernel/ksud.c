@@ -34,6 +34,12 @@
 bool ksu_module_mounted __read_mostly = false;
 bool ksu_boot_completed __read_mostly = false;
 
+#ifdef CONFIG_KSU_EXTRAS
+extern void avc_spoof_init();
+#else
+void avc_spoof_init() {}
+#endif
+
 #ifdef CONFIG_KSU_KPROBES_KSUD
 extern void unregister_kprobe_thread();
 #endif
@@ -119,6 +125,7 @@ void on_module_mounted(void){
 void on_boot_completed(void){
 	ksu_boot_completed = true;
 	pr_info("on_boot_completed!\n");
+	avc_spoof_init(); 
 }
 
 #if defined(CONFIG_KRETPROBES) && defined(CONFIG_KSU_KPROBES_KSUD) && \
