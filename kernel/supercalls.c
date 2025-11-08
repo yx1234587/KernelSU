@@ -25,6 +25,7 @@
 #include "core_hook.h"
 #include "objsec.h"
 #include "file_wrapper.h"
+#include "kernel_compat.h"
 
 // Permission check functions
 bool only_manager(void)
